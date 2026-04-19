@@ -16,7 +16,6 @@ export default function Header() {
         <header className="flex justify-around bg-black w-full h-15 items-center text-white">
             <Link className="text-3xl" to="/">Pipoca<span className="text-orange-500">Flix</span></Link>
             <Link className="hidden md:flex" to="/favoritos">Meus filmes</Link>
-            <Link className="" to="/teste">Teste</Link>
             <Sheet>
                 <SheetTrigger className="md:hidden"><Menu /></SheetTrigger>
                 <SheetContent>
