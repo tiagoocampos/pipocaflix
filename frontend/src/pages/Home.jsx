@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
+import FilmeCard from "../components/FilmeCard";
 
 export function Home() {
 
@@ -32,16 +33,7 @@ export function Home() {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 md:gap-15 p-6">
                 {filmes.map((filme) => {
                     return (
-                        <div className="flex flex-col gap-5 text-center">
-                            <div className="group relative overflow-hidden rounded-2xl hover:scale-105 transition shadow-2xl duration-300 hover:shadow-orange-500/10" key={filme.id}>
-                                <img className="w-full h-72 object-cover duration-700 group-hover:scale-110" src={`https://image.tmdb.org/t/p/original${filme.poster_path}`} alt={filme.title} />
-
-                                <div className="absolute inset-0 bg-linear-to-t  from-black/80 via-black/10 to-transparent" />
-                                <h2 className="text-white text-sm cursor-pointer bottom-3 hover:text-orange-400 duration-200 left-3 right-3 text-center absolute">{filme.title}</h2>
-
-                            </div>
-                            <p className="text-white text-sm">Avaliação: {filme.vote_average.toFixed(1)}</p>
-                        </div>
+                        <FilmeCard key={filme.id} filme={filme} />
 
 
                     )
