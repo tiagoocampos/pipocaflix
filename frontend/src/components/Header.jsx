@@ -10,6 +10,8 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet"
 import { Menu } from "lucide-react";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
 
 export default function Header() {
     return (
@@ -24,11 +26,29 @@ export default function Header() {
                         <SheetDescription>Navegação</SheetDescription>
                     </SheetHeader>
 
-                    <div className="flex justify-center items-center w-full mt-10">
-                        <Link className="bg-gray-200 p-2 w-[95%] rounded-lg" to="/favoritos">Meus filmes</Link>
+                    <div className="flex justify-center flex-col items-center w-full mt-10">
+                        {/* <Link className="bg-orange-500 text-white text-center p-2 w-[95%] rounded-lg" to="/favoritos">Meus filmes</Link> */}
+
+                        <Sheet>
+                            <SheetTrigger className="bg-orange-500 p-2 w-[90%] cursor-pointer duration-200 hover:bg-orange-300 text-white rounded-2xl">Entrar</SheetTrigger>
+                            <SheetContent>
+                                <SheetClose side="left">Fechar</SheetClose>
+                                <SheetHeader className="flex gap-10">
+                                    <div>
+                                        <SheetTitle>Entrar</SheetTitle>
+                                        <SheetDescription>Faça login na sua conta</SheetDescription>
+                                    </div>
+                                    <Input placeholder="Email" />
+                                    <Input placeholder="Senha" />
+                                    <Button className="bg-orange-500">Fazer login</Button>
+                                </SheetHeader>
+                            </SheetContent>
+                        </Sheet>
                     </div>
                 </SheetContent>
             </Sheet>
+
+
         </header>
     )
 }

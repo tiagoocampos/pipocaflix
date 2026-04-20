@@ -20,7 +20,7 @@ export default function FilmeCard({ filme }) {
 
                 <img
                     className="w-full h-72 object-cover transition duration-700 
-                               group-hover:opacity-20 group-hover:blur-[2px]"
+                               group-hover:opacity-80 group-hover:blur-[2px]"
                     src={`https://image.tmdb.org/t/p/w500${filme.poster_path}`}
                     alt={filme.title}
                 />
