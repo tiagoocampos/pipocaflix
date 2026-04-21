@@ -16,6 +16,8 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { Spinner } from "./ui/spinner";
 
+const backend = import.meta.env.VITE_BACKEND
+
 export default function Header() {
     const [loading, setLoading] = useState(false)
     const [user, setUser] = useState(() => {
@@ -67,7 +69,7 @@ export default function Header() {
 
         try {
 
-            const res = await fetch("http://localhost:3000/users/login", {
+            const res = await fetch(`${backend}/users/login`, {
                 method: "POST",
                 headers: headers,
                 body: JSON.stringify({
@@ -120,7 +122,7 @@ export default function Header() {
 
         try {
 
-            const res = await fetch("http://localhost:3000/users/register", {
+            const res = await fetch(`${backend}/users/register`, {
                 method: "POST",
                 headers: headers,
                 body: JSON.stringify({
