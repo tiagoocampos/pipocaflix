@@ -173,7 +173,7 @@ export default function Header() {
                             </SheetHeader>
 
                             <div className="flex justify-center flex-col items-center  w-full mt-10">
-                                <Button>Sair</Button>
+                                <Button onClick={logout}>Sair</Button>
                             </div>
                         </SheetContent>
                     </Sheet>
@@ -233,17 +233,38 @@ export default function Header() {
                                 {/* <Link className="bg-orange-500 text-white text-center p-2 w-[95%] rounded-lg" to="/favoritos">Meus filmes</Link> */}
 
                                 <Sheet>
-                                    <SheetTrigger className="bg-orange-500 p-2 w-[90%] cursor-pointer duration-200 hover:bg-orange-300 text-white rounded-2xl">Entrar</SheetTrigger>
+                                    <SheetTrigger className="bg-orange-500 md:flex w-[95%] p-2 cursor-pointer duration-200 hover:bg-orange-300 text-white rounded-2xl">Entrar</SheetTrigger>
                                     <SheetContent>
-                                        <SheetClose side="left"><ArrowLeft /></SheetClose>
+                                        <SheetClose side="left">Fechar</SheetClose>
                                         <SheetHeader className="flex gap-10">
                                             <div>
                                                 <SheetTitle>Entrar</SheetTitle>
                                                 <SheetDescription>Faça login na sua conta</SheetDescription>
                                             </div>
-                                            <Input placeholder="Email" />
-                                            <Input placeholder="Senha" />
-                                            <Button onClick={login} className="bg-orange-500">Fazer login</Button>
+                                            <Input onKeyDown={handleKeyDownLogin} value={emailLogin} onChange={(e) => setEmailLogin(e.target.value)} type="email" placeholder="Email" />
+                                            <Input onKeyDown={handleKeyDownLogin} value={passwordLogin} onChange={(e) => setPasswordLogin(e.target.value)} type="password" placeholder="Senha" />
+                                            {loading && <div className="flex mx-auto items-center gap-2"><Spinner /><span>Carregando...</span></div>}
+
+                                            <Button onClick={login} className="bg-orange-500 hover:bg-orange-300 cursor-pointer">Fazer login</Button>
+                                        </SheetHeader>
+                                    </SheetContent>
+                                </Sheet>
+
+                                <Sheet>
+                                    <SheetTrigger className="text-orange-500 md:flex p-2 cursor-pointer  rounded-2xl">Criar conta</SheetTrigger>
+                                    <SheetContent>
+                                        <SheetClose side="left">Fechar</SheetClose>
+                                        <SheetHeader className="flex gap-10">
+                                            <div>
+                                                <SheetTitle>Criar conta</SheetTitle>
+                                                <SheetDescription>Crie sua conta</SheetDescription>
+                                            </div>
+                                            <Input onKeyDown={handleKeyDownRegister} value={nomeRegister} onChange={(e) => setNomeRegister(e.target.value)} placeholder="Digite seu nome" type="text" />
+                                            <Input onKeyDown={handleKeyDownRegister} value={emailRegister} onChange={(e) => setEmailRegister(e.target.value)} placeholder="Digite seu email" type="email" />
+                                            <Input onKeyDown={handleKeyDownRegister} value={passwordRegister} onChange={(e) => setPasswordRegister(e.target.value)} placeholder="Digite sua senha" type="password" />
+                                            <Input onKeyDown={handleKeyDownRegister} value={confirmPasswordRegister} onChange={(e) => setConfirmPasswordRegister(e.target.value)} placeholder="Confirme sua senha" type="password" />
+                                            {loading && <div className="flex mx-auto items-center gap-2"><Spinner /><span>Carregando...</span></div>}
+                                            <Button onClick={register} className="bg-orange-500 hover:bg-orange-300 cursor-pointer">Criar conta</Button>
                                         </SheetHeader>
                                     </SheetContent>
                                 </Sheet>
