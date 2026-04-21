@@ -14,13 +14,13 @@ export default function FilmeCard({ filme }) {
 
 
             <div className="group relative overflow-hidden rounded-2xl 
-                            hover:scale-105 transition duration-300 
+                             transition duration-500 
                             hover:shadow-orange-500/10 shadow-2xl">
 
 
                 <img
-                    className="w-full h-72 object-cover transition duration-700 
-                               group-hover:opacity-80 group-hover:blur-[2px]"
+                    className="w-full h-72 object-cover transition duration-1000 
+                               group-hover:opacity-80 group-hover:blur-[2px] group-hover:scale-120"
                     src={`https://image.tmdb.org/t/p/w500${filme.poster_path}`}
                     alt={filme.title}
                 />

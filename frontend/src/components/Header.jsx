@@ -32,8 +32,26 @@ export default function Header() {
     const headers = { "Content-Type": "application/json" }
 
     const [emailLogin, setEmailLogin] = useState("")
-    console.log(emailLogin)
     const [passwordLogin, setPasswordLogin] = useState("")
+
+    const [nomeRegister, setNomeRegister] = useState("")
+    const [emailRegister, setEmailRegister] = useState("")
+    const [passwordRegister, setPasswordRegister] = useState("")
+    const [confirmPasswordRegister, setConfirmPasswordRegister] = useState("")
+
+    function handleKeyDownLogin(e) {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            login();
+        }
+    }
+
+    function handleKeyDownRegister(e) {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            register();
+        }
+    }
 
     async function login() {
         if (emailLogin === "") {
@@ -76,6 +94,8 @@ export default function Header() {
             toast.error("Erro ao realizar o login", { position: "top-center" })
         } finally {
             setLoading(false)
+            setEmailLogin("")
+            setPasswordLogin("")
         }
     }
 
@@ -85,12 +105,61 @@ export default function Header() {
         setUser(null)
     }
 
+    async function register() {
+        if (emailRegister === "" || passwordRegister === "" || confirmPasswordRegister === "") {
+            toast.error("Preencha corretamente os campos", { position: "top-center" })
+            return
+        }
+
+        else if (passwordRegister !== confirmPasswordRegister) {
+            toast.error("As senhas não coincidem", { position: "top-center" })
+            setConfirmPasswordRegister("")
+            return
+        }
+        setLoading(true)
+
+        try {
+
+            const res = await fetch("http://localhost:3000/users/register", {
+                method: "POST",
+                headers: headers,
+                body: JSON.stringify({
+                    nome: nomeRegister,
+                    email: emailRegister,
+                    password: passwordRegister
+                })
+            })
+            const data = await res.json();
+            if (!res.ok) {
+                toast.error(data.message, { position: "top-center" })
+                return
+            }
+
+
+
+
+            toast.success(data.message, { position: "top-center" })
+            console.log(data.message)
+        } catch (error) {
+            console.error("Erro no servidor", error)
+            toast.error("Erro ao realizar o cadastro", { position: "top-center" })
+        } finally {
+            setLoading(false)
+            setNomeRegister("")
+            setEmailRegister("")
+            setPasswordRegister("")
+            setConfirmPasswordRegister("")
+
+        }
+    }
+
     return (
         <header className="flex justify-around bg-black w-full h-15 items-center text-white">
-            <Link className="text-3xl" to="/">Pipoca<span className="text-orange-500">Flix</span></Link>
+            <Link className="text-3xl border-b  border-gray-400/25 p-2 rounded" to="/">Pipoca<span className="text-orange-500">Flix</span></Link>
 
             {user ? (
                 <div className="flex items-center gap-5">
+                    <p>Olá, <span>{user.nome}</span></p>
                     <Link className="hidden md:flex" to="/favoritos">Meus filmes</Link>
                     <Button onClick={logout} className="hidden md:flex">Sair</Button>
                     <Sheet>
@@ -120,8 +189,8 @@ export default function Header() {
                                         <SheetTitle>Entrar</SheetTitle>
                                         <SheetDescription>Faça login na sua conta</SheetDescription>
                                     </div>
-                                    <Input value={emailLogin} onChange={(e) => setEmailLogin(e.target.value)} type="email" placeholder="Email" />
-                                    <Input value={passwordLogin} onChange={(e) => setPasswordLogin(e.target.value)} type="password" placeholder="Senha" />
+                                    <Input onKeyDown={handleKeyDownLogin} value={emailLogin} onChange={(e) => setEmailLogin(e.target.value)} type="email" placeholder="Email" />
+                                    <Input onKeyDown={handleKeyDownLogin} value={passwordLogin} onChange={(e) => setPasswordLogin(e.target.value)} type="password" placeholder="Senha" />
                                     {loading && <div className="flex mx-auto items-center gap-2"><Spinner /><span>Carregando...</span></div>}
 
                                     <Button onClick={login} className="bg-orange-500 hover:bg-orange-300 cursor-pointer">Fazer login</Button>
@@ -138,11 +207,12 @@ export default function Header() {
                                         <SheetTitle>Criar conta</SheetTitle>
                                         <SheetDescription>Crie sua conta</SheetDescription>
                                     </div>
-                                    <Input placeholder="Digite seu nome" />
-                                    <Input placeholder="Digite seu email" />
-                                    <Input placeholder="Digite sua senha" />
-                                    <Input placeholder="Confirme sua senha" />
-                                    <Button className="bg-orange-500">Fazer login</Button>
+                                    <Input onKeyDown={handleKeyDownRegister} value={nomeRegister} onChange={(e) => setNomeRegister(e.target.value)} placeholder="Digite seu nome" type="text" />
+                                    <Input onKeyDown={handleKeyDownRegister} value={emailRegister} onChange={(e) => setEmailRegister(e.target.value)} placeholder="Digite seu email" type="email" />
+                                    <Input onKeyDown={handleKeyDownRegister} value={passwordRegister} onChange={(e) => setPasswordRegister(e.target.value)} placeholder="Digite sua senha" type="password" />
+                                    <Input onKeyDown={handleKeyDownRegister} value={confirmPasswordRegister} onChange={(e) => setConfirmPasswordRegister(e.target.value)} placeholder="Confirme sua senha" type="password" />
+                                    {loading && <div className="flex mx-auto items-center gap-2"><Spinner /><span>Carregando...</span></div>}
+                                    <Button onClick={register} className="bg-orange-500 hover:bg-orange-300 cursor-pointer">Criar conta</Button>
                                 </SheetHeader>
                             </SheetContent>
                         </Sheet>
