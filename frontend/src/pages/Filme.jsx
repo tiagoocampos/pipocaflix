@@ -4,6 +4,9 @@ import api from "../services/api.js"
 import { useLoading } from "../hooks/useLoading.jsx";
 import { Loading } from "../components/Loading.jsx";
 import { Button } from "../components/ui/button.jsx";
+import { Heart } from "lucide-react";
+import { saveFilme } from "../utils/saveFilme.js";
+import { toast } from "sonner";
 
 
 export default function Filme() {
@@ -54,7 +57,8 @@ export default function Filme() {
                 <div className="flex flex-col items-center md:items-baseline gap-5">
                     <h1 className="text-white object-cover">{filme.title}</h1>
                     <p className="text-white text-sm">{filme.overview}</p>
-                    <Button><a href={`https://www.youtube.com/results?search_query=${filme.title} Trailer`} target="_blank">Ver trailer</a></Button>
+                    <Button className="hover:bg-orange-500 duration-400" ><a href={`https://www.youtube.com/results?search_query=${filme.title} Trailer`} target="blank">Ver trailer</a></Button>
+                    <Button onClick={() => saveFilme(filme)} className="cursor-pointer hover:bg-orange-500 duration-400"><Heart />Adicionar aos favoritos</Button>
                 </div>
 
 
