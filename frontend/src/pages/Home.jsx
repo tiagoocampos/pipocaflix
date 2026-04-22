@@ -10,10 +10,11 @@ export function Home() {
         try {
             const res = await axios({
                 method: "GET",
-                url: "https://api.themoviedb.org/3/discover/movie",
+                url: "https://api.themoviedb.org/3/movie/now_playing",
                 params: {
                     api_key: "245b86ade96a31ce140e2999f69d0c7f",
                     language: "pt-BR",
+                    page: 1
                 }
             });
 

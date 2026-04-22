@@ -5,15 +5,17 @@ import { Link } from "react-router-dom";
 
 export default function FilmeCard({ filme }) {
 
+
     const nota = filme.vote_average / 2;
     const estrelasCheias = Math.round(nota);
     const estrelasVazias = 5 - estrelasCheias;
 
     return (
-        <div className="flex flex-col gap-4 text-center">
+        <div className="flex flex-col gap-2 text-center ">
 
 
-            <div className="group relative overflow-hidden rounded-2xl 
+
+            <div className="group relative overflow-hidden rounded 
                              transition duration-500 
                             hover:shadow-orange-500/10 shadow-2xl">
 
