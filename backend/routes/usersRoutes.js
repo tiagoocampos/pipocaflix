@@ -105,4 +105,22 @@ router.get("/me", authToken, (req, res) =>{
     res.json({ message: `Usuário logado> ${req.userId}`})
 })
 
+router.delete("/delete-account", authToken, async (req, res) =>{
+    try {
+        const userId =  req.userId;
+        await db
+        .delete(users)
+        .where(eq(users.id, userId))
+
+        return res.status(200).json({
+            message: "Conta deletada com sucesso"
+        })
+    } catch (error) {
+        console.error("Erro no servidor", error)
+        return res.status(500).json({ message: "Erro no servidor"})
+    }
+})
+
+
+
 export default router;

@@ -8,7 +8,7 @@ export function saveFilme(filme){
 
     if(exists){
         console.log("Filme ja esta salvo!")
-        toast.error("o Filme já esta salvo nos seus favoritos", {position: "top-center"})
+        toast.error("o filme já esta salvo nos seus favoritos", {position: "top-center"})
         return;
     }
 
